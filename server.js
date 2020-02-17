@@ -5,8 +5,11 @@ const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 
+//Importing the Routes
 const indexRouter = require("./routes/index");
+const authorRouter = require("./routes/authors");
 
+//Conecting to DB
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DATABASE_URL, { useUnifiedTopology: true });
 
@@ -20,6 +23,8 @@ app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(express.static("public"));
 
+//Using the Routes
 app.use("/", indexRouter);
+app.use("/authors", authorRouter);
 
 app.listen(process.env.PORT || 3000);
